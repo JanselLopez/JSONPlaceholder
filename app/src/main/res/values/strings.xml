@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">JSONPlaceholder</string>
+    <string name="go_to_comments">Go to Comments</string>
+    <string name="new_number">New Number</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="delete_contact">Are you sure you want to delete this contact?</string>
+</resources>

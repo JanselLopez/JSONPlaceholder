@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JSONPlaceholder</string>
+    <string name="go_to_comments">Ir a los comentarios</string>
+    <string name="new_number">Nuevo Número</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Eliminar</string>
+    <string name="delete_contact">¿Está seguro de querer eliminar este contacto?</string>
+</resources>
