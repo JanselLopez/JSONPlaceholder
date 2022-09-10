@@ -1,10 +1,8 @@
 package com.smartestidea.jsonplaceholder.ui.contact
 
 import android.content.*
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.smartestidea.jsonplaceholder.data.model.Contact
 import com.smartestidea.jsonplaceholder.databinding.CvContactBinding
@@ -14,7 +12,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.smartestidea.jsonplaceholder.R
-import com.smartestidea.jsonplaceholder.data.provider.ContactProvider
+import com.smartestidea.jsonplaceholder.core.provider.ContactProvider
 import com.smartestidea.jsonplaceholder.databinding.BsContactMenuBinding
 
 
@@ -35,11 +33,12 @@ class ContactAdapter(
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         with(holder){
             with(contacts[position]){
-                binding.tvInitial.text = name[0].toString()
+                if(name==null) name = context.resources.getString(R.string.unknown)
+                binding.tvInitial.text = name!![0].toString().uppercase()
                 binding.tvName.text = name
                 binding.tvNumber.text = number?:""
                 binding.cvContact.setOnClickListener {
-                    showBottomSheet(id,name,position)
+                    showBottomSheet(id,name?:context.resources.getString(R.string.unknown),position)
                 }
             }
         }
@@ -73,8 +72,7 @@ class ContactAdapter(
         builder.setPositiveButton(android.R.string.ok
         ) { _, _ ->
             val newNumber = input.text.toString()
-            val contactP = ContactProvider()
-            contactP.setNumber(id,newNumber,context)
+            ContactProvider.setNumber(id,newNumber,context)
             contacts[position].number = newNumber
             notifyItemChanged(position)
         }
@@ -89,8 +87,7 @@ class ContactAdapter(
         builder.setTitle(context.resources.getString(R.string.delete_contact))
         builder.setPositiveButton(android.R.string.ok
         ) { _, _ ->
-            val contactP = ContactProvider()
-            contactP.deleteContact(id,context)
+            ContactProvider.deleteContact(id,context)
             notifyItemRemoved(position)
         }
         builder.setNegativeButton(android.R.string.cancel

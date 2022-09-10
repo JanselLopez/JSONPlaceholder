@@ -12,7 +12,7 @@ class PostService @Inject constructor(
     private val apiClient: PostApiClient
 ){
     suspend fun getPosts(): List<PostNetwork> = withContext(Dispatchers.IO) {
-            apiClient.getPosts().body() ?: emptyList()
+            apiClient.getPosts()?.body() ?: emptyList()
         }
 
     suspend fun getComments(postId: Int): List<CommentNetwork> =

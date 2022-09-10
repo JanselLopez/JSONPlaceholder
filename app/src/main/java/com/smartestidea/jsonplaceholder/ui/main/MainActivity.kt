@@ -16,6 +16,10 @@ import com.smartestidea.jsonplaceholder.databinding.ActivityMainBinding
 import com.smartestidea.jsonplaceholder.ui.contact.ContactActivity
 import dagger.hilt.android.AndroidEntryPoint
 
+import com.google.android.material.snackbar.Snackbar
+import com.smartestidea.jsonplaceholder.R
+
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -50,31 +54,40 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun requestPermission() {
+   private fun requestPermission() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             when (PackageManager.PERMISSION_GRANTED) {
-                ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission_group.CONTACTS ) -> {
-                    startActivity(Intent(this,ContactActivity::class.java))
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS ) -> {
+                    requestWrite()
                 }
-                else -> {
-                    requestPermissionContacts.launch(Manifest.permission.READ_CONTACTS)
-                    requestPermissionContacts.launch(Manifest.permission.WRITE_CONTACTS)
-                }
+                else ->requestPermissionContactsRead.launch(Manifest.permission.READ_CONTACTS)
             }
-        }else{
+        }else
             startActivity(Intent(this,ContactActivity::class.java))
+    }
+
+    private fun requestWrite() {
+        when(PackageManager.PERMISSION_GRANTED){
+            ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_CONTACTS) ->{
+                startActivity(Intent(this,ContactActivity::class.java))
+            }
+            else -> requestPermissionContactsWrite.launch(Manifest.permission.WRITE_CONTACTS)
         }
     }
 
-    private val requestPermissionContacts = registerForActivityResult(
+    private val requestPermissionContactsWrite = registerForActivityResult(
         ActivityResultContracts.RequestPermission()){
-        if(it){
+        if(it)
             startActivity(Intent(this,ContactActivity::class.java))
-        }else{
-//show error
-        }
+        else
+            Snackbar.make(binding.coordinator,resources.getString(R.string.grant_permissions),Snackbar.LENGTH_SHORT).show()
+    }
+    private val requestPermissionContactsRead = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()){
+        if(it)
+            requestWrite()
+        else
+            Snackbar.make(binding.coordinator,resources.getString(R.string.grant_permissions),Snackbar.LENGTH_SHORT).show()
     }
 
 

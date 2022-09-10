@@ -10,7 +10,7 @@ import retrofit2.http.Url
 
 interface PostApiClient {
     @GET("posts")
-    suspend fun getPosts():Response<List<PostNetwork>>
+    suspend fun getPosts():Response<List<PostNetwork>>?
 
     @GET("comments")
     suspend fun getComments(

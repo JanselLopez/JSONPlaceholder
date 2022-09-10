@@ -8,12 +8,16 @@ import javax.inject.Inject
 class GetCommentsUseCase @Inject constructor(
     private val repository: PostsRepository
 ) {
-    suspend operator fun invoke(postId:Int,isConnect:Boolean): List<Comment> = if (isConnect) {
-            val comments = repository.getCommentsFromApi(postId)
+    suspend operator fun invoke(postId:Int,isConnect:Boolean): List<Comment> {
+
+        val comments = repository.getCommentsFromApi(postId)
+
+        if (isConnect && comments.isNotEmpty()) {
             repository.clearComments()
             repository.insertComments(comments.map { it.toDomain() })
-            comments
-        }else
+        } else
             repository.getCommentsFromDatabase(postId)
 
+        return comments
+    }
 }

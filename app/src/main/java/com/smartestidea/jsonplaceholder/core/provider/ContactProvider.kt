@@ -1,22 +1,20 @@
-package com.smartestidea.jsonplaceholder.data.provider
+package com.smartestidea.jsonplaceholder.core.provider
 
 import android.content.ContentProviderOperation
-import android.content.ContentResolver
 import android.content.Context
 import android.content.OperationApplicationException
 import android.os.RemoteException
 import android.provider.ContactsContract
 import com.smartestidea.jsonplaceholder.data.model.Contact
-import javax.inject.Inject
 import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.widget.Toast
 
 
-class ContactProvider @Inject constructor() {
+object ContactProvider {
 
     private val contentProviderOperations = ArrayList<ContentProviderOperation>()
 
-    suspend fun getContactCursor(context: Context): MutableList<Contact> {
+    fun getContacts(context: Context): MutableList<Contact> {
 
         val projection = arrayOf(
             ContactsContract.Data.CONTACT_ID,

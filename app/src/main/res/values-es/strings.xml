@@ -6,4 +6,6 @@
     <string name="edit">Editar</string>
     <string name="delete">Eliminar</string>
     <string name="delete_contact">¿Está seguro de querer eliminar este contacto?</string>
+    <string name="unknown">desconocido</string>
+    <string name="grant_permissions">otorga los permisos</string>
 </resources>
