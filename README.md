@@ -2,7 +2,7 @@
 Desarrollar una app en Android que muestre un listado de posts.
 Los posts deben obtenerse del siguiente endpoint: [https://jsonplaceholder.typicode.com/posts](https://jsonplaceholder.typicode.com/posts)
 
-Al seleccionar un post mostrar los comentarios asociados: Ej: [https://jsonplaceholder.typicode.com/posts](https://jsonplaceholder.typicode.com/comments?postId=1)
+Al seleccionar un post mostrar los comentarios asociados: Ej: [https://jsonplaceholder.typicode.com/comments?postId=1](https://jsonplaceholder.typicode.com/comments?postId=1)
 
 Documentación: [https://jsonplaceholder.typicode.com/](https://jsonplaceholder.typicode.com/)
 
